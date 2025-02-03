@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V1 in minecraft</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+        .column {
+            flex: 50%;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body onload="main()">
+    <p>Christian Sigua</p>
+    <p>csigua@ucsc.edu</p>
+    <p>Poke animation is a parry!</p>
+    <div class="container">
+        <div class="column">
+            <canvas id="webgl" width="400" height="400"></canvas>
+            <p>
+            ANIMATION BUTTONS:
+            <button id="animateOn">WALK CYCLE ON</button>
+            <button id="animateOff">WALK CYCLE OFF</button>
+
+            <p>
+            WINGS:<br>
+            Wings (up/down) <input type="range" min="0" max="90" value="5" class="slider" id="wingCurlSlide"><br>
+            <p>
+            HEAD:
+            Head (up/down) <input type="range" min="-30" max="60" value="0" class="slider" id="headXSlide"><br>
+            Head (left/right) <input type="range" min="-60" max="60" value="0" class="slider" id="headYSlide"><br>
+            <p>LEFT ARM:<br>
+            Left Shoulder X (forward/back) <input type="range" min="-60" max="165" value="5" class="slider" id="leftShoulderXSlide"><br>
+            Left Shoulder Y (left/right) <input type="range" min="-45" max="60" value="5" class="slider" id="leftShoulderYSlide"><br>
+            Left Shoulder Z (up/down) <input type="range" min="-10" max="165" value="5" class="slider" id="leftShoulderZSlide"><br>
+            Left Elbow <input type="range" min="0" max="135" value="8" class="slider" id="leftElbowSlide"><br>
+            Left Wrist X (up/down) <input type="range" min="-25" max="25" value="0" class="slider" id="leftWristXSlide"><br>
+            Left Wrist Y (left/right) <input type="range" min="-90" max="90" value="0" class="slider" id="leftWristYSlide"><br>
+            Left Wrist Z (forward/back) <input type="range" min="-30" max="30" value="0" class="slider" id="leftWristZSlide"><br>
+        </div>
+        <div class="column">
+            <p>RIGHT ARM:
+            Right Shoulder X (forward/back) <input type="range" min="-60" max="165" value="5" class="slider" id="rightShoulderXSlide"><br>
+            Right Shoulder Y (left/right) <input type="range" min="-45" max="60" value="5" class="slider" id="rightShoulderYSlide"><br>
+            Right Shoulder Z (up/down) <input type="range" min="-10" max="165" value="5" class="slider" id="rightShoulderZSlide"><br>
+            Right Elbow <input type="range" min="0" max="135" value="8" class="slider" id="rightElbowSlide"><br>
+            Right Wrist X (up/down) <input type="range" min="-25" max="25" value="0" class="slider" id="rightWristXSlide"><br>
+            Right Wrist Y (left/right) <input type="range" min="-90" max="90" value="0" class="slider" id="rightWristYSlide"><br>
+            Right Wrist Z (forward/back) <input type="range" min="-30" max="30" value="0" class="slider" id="rightWristZSlide"><br>
+            <p>LEFT LEG:<br>
+            Left Top Leg Joint X (up/down) <input type="range" min="-20" max="135" value="0" class="slider" id="leftTopLegXSlide"><br>
+            Left Top Leg Joint Y (left/right) <input type="range" min="-10" max="45" value="0" class="slider" id="leftTopLegYSlide"><br>
+            Left Top Leg Joint Z (forward/back) <input type="range" min="-30" max="30" value="0" class="slider" id="leftTopLegZSlide"><br>
+            Left Knee <input type="range" min="-135" max="0" value="0" class="slider" id="leftKneeSlide"><br>
+            Left Ankle <input type="range" min="-100" max="30" value="0" class="slider" id="leftAnkleSlide"><br>
+            <p>RIGHT LEG:<br>
+            Right Top Leg Joint X (up/down) <input type="range" min="-20" max="135" value="0" class="slider" id="rightTopLegXSlide"><br>
+            Right Top Leg Joint Y (left/right) <input type="range" min="-10" max="45" value="0" class="slider" id="rightTopLegYSlide"><br>
+            Right Top Leg Joint Z (forward/back) <input type="range" min="-30" max="30" value="0" class="slider" id="rightTopLegZSlide"><br>
+            Right Knee <input type="range" min="-135" max="0" value="0" class="slider" id="rightKneeSlide"><br>
+            Right Ankle <input type="range" min="-100" max="30" value="0" class="slider" id="rightAnkleSlide"><br>
+            <p></p>
+            Camera Angle: <input type="range" min="-90" max="90" value="0" class="slider" id="angleSlide">
+            <br>
+        </div>
+    </div>
+
+    <script src="./lib/cuon-utils.js"></script>
+    <script src="./lib/cuon-matrix-cse160.js"></script>
+    <script src="./lib/webgl-utils.js"></script>
+    <script src="./lib/webgl-debug.js"></script>
+    <script src="./src/lettering.js"></script>
+    <script src="./src/cube.js"></script>
+    <script src="./src/circle.js"></script>
+    <script src="./src/triangle.js"></script>
+    <script src="./src/point.js"></script>
+    <script src="./src/blockyanimal.js"></script>
+</body>
+</html>

@@ -16,7 +16,7 @@ class Triangle {
 
         // Draw
         // gl.drawArrays(gl.POINTS, 0, 1);
-        var d = 5.0;
+        var d = 50.0;
         drawTriangle( [xy[0]-(d/2), xy[1]-(d/2), xy[0]+(d/2), xy[1]-(d/2), xy[0], xy[1]+(d/2)] );
     }
 }
@@ -71,4 +71,8 @@ function drawTriangle3D(vertices) {
 
     gl.drawArrays(gl.TRIANGLES, 0, n);
     // return n;
+}
+
+function drawTriangle2D(v) {
+    drawTriangle3D( [v[0],v[1],0,    v[2],v[3],0,    v[4],v[5],0] );
 }
