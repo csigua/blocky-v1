@@ -367,7 +367,7 @@ function updateAnimationAngles() {
 }
 
 function poke() {
-  let sound = new Audio('../assets/parry.mp3');
+  let sound = new Audio('./assets/parry.mp3');
   sound.volume = 0.02;
   sound.play();
 
