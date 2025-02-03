@@ -24,6 +24,9 @@ let u_FragColor;
 let u_ModelMatrix;
 let u_GlobalRotateMatrix;
 
+let ROBOT = 0;
+let V1_PLATE_COLOR = RGB(60,77,124);
+
 function setupWebGL() {
   // Retrieve <canvas> element
   canvas = document.getElementById('webgl');
@@ -200,9 +203,12 @@ function lockVars() {
 }
 
 function addActionsForHtmlUI() {
-  // Clear button event
+  // buttons
   document.getElementById('animateOn').onclick = function() {walk = true};
   document.getElementById('animateOff').onclick = function() {walk = false};
+
+  document.getElementById('V1Button').onclick = function() {ROBOT = 0; V1_PLATE_COLOR = RGB(60,77,124); renderAllShapes();};
+  document.getElementById('V2Button').onclick = function() {ROBOT = 1; V1_PLATE_COLOR = RGB(130,16,15); renderAllShapes();};
 
   // Arm sliders
   document.getElementById('leftShoulderXSlide').addEventListener('mousemove', function() {g_leftShoulderRotX = this.value; renderAllShapes()});
@@ -243,6 +249,15 @@ function addActionsForHtmlUI() {
 
   // Property Slider events
   document.getElementById('angleSlide').addEventListener('mousemove', function() { g_globalAngle = this.value; renderAllShapes(); });
+}
+
+function sendTextToHTML(text, htmlID) {
+  var htmlElm = document.getElementById(htmlID);
+  if (!htmlElm) {
+    console.log("failed to get " + htmlID + "from HTML");
+    return;
+  }
+  htmlElm.innerHTML = text;
 }
 
 function main() {
@@ -352,6 +367,10 @@ function updateAnimationAngles() {
 }
 
 function poke() {
+  let sound = new Audio('../assets/parry.mp3');
+  sound.volume = 0.02;
+  sound.play();
+
   let animationStart = performance.now();
   let animationDuration = 1000;
   let wasWalking = false;
@@ -404,7 +423,6 @@ function RGB(r, g, b) {
   return [r/255, g/255, b/255, 1];
 }
 
-const V1_PLATE_COLOR = RGB(60,77,124);
 const V1_BODY_COLOR = RGB(57, 57, 66);
 const V1_BODY2_COLOR = RGB(72, 72, 80);
 const V1_BODY3_COLOR = RGB(44, 44, 54);
@@ -413,6 +431,8 @@ const V1_WIRES = RGB(72, 15, 18);
 
 function renderAllShapes() {
   // Clear <canvas>
+  var startTime = performance.now();
+
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   var globalRotMat = new Matrix4()
@@ -495,10 +515,17 @@ function renderAllShapes() {
   torsoBottom.matrix.scale(0.9,0.7,0.7);
   torsoBottom.render();
 
-  var letter = new V1_Brand();
+  var letter;
+  
+  if (ROBOT == 0) {
+    letter = new V1_Brand();
+  } else {
+    letter = new V2_Brand();
+  }
+
   letter.color = [0,0,0,1];
   letter.matrix = new Matrix4(bodyRef);
-  letter.matrix.translate(0.7,0.3,-0.06);
+  letter.matrix.translate(0.55,0.3,-0.06);
   letter.matrix.scale(0.5,0.5,0.5);
   letter.render();
 
@@ -1285,4 +1312,7 @@ function renderAllShapes() {
   light.matrix.translate(0,0,-0.3);
   light.matrix.scale(0.6,0.6,0.6);
   light.render();
+
+  var duration = performance.now() - startTime;
+  sendTextToHTML(" ms: " + Math.floor(duration) + " fps: " + Math.floor(1000/duration)/10, "performance");
 }

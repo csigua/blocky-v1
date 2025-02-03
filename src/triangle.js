@@ -3,6 +3,7 @@ class Triangle {
         this.type = 'triangle';
         this.position = [0.0, 0.0, 0.0];
         this.color = [1.0, 1.0, 1.0, 1.0];
+        this.buffer = null;
     }
 
     render() {
@@ -52,9 +53,13 @@ function drawTriangle3D(vertices) {
     var n = 3; // number of vertices
 
     var vertexBuffer = gl.createBuffer();
-    if (!vertexBuffer) {
-        console.log('Failed to create the buffer object');
-        return -1;
+    if (this.buffer === null) {
+        // create a buffer object
+        this.buffer = gl.creaetBuffer();
+        if (!this.buffer) {
+            console.log("Failed to create the buffer object");
+            return -1
+        }
     }
 
     // Bind the buffer object to target
